@@ -1,73 +1,77 @@
-Automatizador de Sincronização de Planilhas Microsoft Forms
-Este é um script em Python que automatiza o processo de abrir planilhas do Excel Online vinculadas ao Microsoft Forms para forçar a sincronização de dados. Ele utiliza o Selenium para controlar um navegador em modo headless (sem interface gráfica), realizando login, navegando até as planilhas especificadas e aguardando a confirmação de que os dados foram sincronizados.
+# 📊 Automatizador de Sincronização de Planilhas Microsoft Forms
 
-O Problema Resolvido
-O Microsoft Forms permite que as respostas de formulários sejam salvas automaticamente em uma planilha do Excel Online. No entanto, em alguns cenários, a sincronização de novas respostas só ocorre quando a planilha é aberta manualmente por um usuário. Este script resolve esse problema ao simular a ação de um usuário, garantindo que as planilhas estejam sempre atualizadas sem intervenção manual.
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)  
+[![Selenium](https://img.shields.io/badge/Selenium-Automation-brightgreen.svg)](https://www.selenium.dev/)  
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
 
-Principais Funcionalidades
-Login Automático: Faz login em uma conta Microsoft de forma segura usando credenciais armazenadas em um arquivo de ambiente.
+---
 
-Operação em Modo Headless: Roda em segundo plano, sem abrir janelas de navegador visíveis, ideal para execução em servidores ou agendamento de tarefas (como Cron Jobs ou Agendador de Tarefas do Windows).
+## 📌 Sobre o Projeto
+Este é um script em **Python** que automatiza o processo de abrir planilhas do **Excel Online** vinculadas ao **Microsoft Forms** para forçar a sincronização de dados.  
 
-Verificação Inteligente de Sincronização: Não depende de esperas fixas. O script procura ativamente pela mensagem "Sincronizado com Forms" na página, inclusive dentro de iframes, tornando o processo mais rápido e confiável.
+Ele utiliza o **Selenium** para controlar um navegador em modo **headless** (sem interface gráfica), realizando login, navegando até as planilhas especificadas e aguardando a confirmação de que os dados foram sincronizados.
 
-Gerenciamento Automático do ChromeDriver: Utiliza webdriver-manager para baixar e gerenciar a versão correta do driver do Chrome, eliminando a necessidade de atualizações manuais.
+---
 
-Configuração Flexível de URLs: Permite adicionar múltiplas planilhas, organizadas por categorias, de forma simples e clara.
+## ❓ O Problema Resolvido
+O Microsoft Forms permite que as respostas de formulários sejam salvas automaticamente em uma planilha do Excel Online.  
+No entanto, em alguns cenários, a sincronização de novas respostas só ocorre quando a planilha é aberta manualmente.  
 
-Captura de Tela para Depuração: Em caso de falha no login ou em outros pontos críticos, o script salva uma captura de tela para facilitar a identificação do problema.
+➡️ Este script resolve esse problema ao simular a ação de um usuário, garantindo que as planilhas estejam sempre atualizadas sem intervenção manual.
 
-Estrutura Robusta: Utiliza blocos try...finally para garantir que o navegador seja sempre encerrado corretamente, mesmo em caso de erros.
+---
 
-Pré-requisitos
-Antes de começar, garanta que você tenha os seguintes itens instalados:
+## ⚙️ Principais Funcionalidades
+- 🔑 **Login Automático** com credenciais seguras (.env).  
+- 🕶️ **Execução em Modo Headless** (ideal para servidores e agendadores).  
+- ⚡ **Verificação Inteligente de Sincronização** (inclusive dentro de iframes).  
+- 🔄 **Gerenciamento Automático do ChromeDriver** via `webdriver-manager`.  
+- 📂 **Configuração Flexível de URLs** por categorias.  
+- 📸 **Captura de Tela para Depuração** em caso de falhas.  
+- 🛡️ **Estrutura Robusta** com tratamento de erros e encerramento seguro do navegador.  
 
-Python 3.7+
+---
 
-Google Chrome instalado na máquina onde o script será executado.
+## 🔧 Pré-requisitos
+Antes de começar, você precisa ter instalado:  
 
-Uma conta Microsoft com acesso às planilhas que você deseja sincronizar.
+- Python **3.7+**  
+- Google Chrome  
+- Conta Microsoft com acesso às planilhas desejadas  
 
-Instalação
-Siga os passos abaixo para configurar o ambiente do projeto.
+---
 
-1 . Clone o repositório:
+## 🚀 Instalação
 
-git clone https://github.com/RaphaelClemente/Automatizador-de-Planilhas-do-Formulario-Microsoft
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/RaphaelClemente/Automatizador-de-Planilhas-do-Formulario-Microsoft
 
-2 . Crie e ative um ambiente virtual (recomendado):
+2.Crie e ative um ambiente virtual (recomendado):
 
-No Windows: python -m venv venv .\venv\Scripts\activate
+Windows:
+python -m venv venv
+.\venv\Scripts\activate
 
-3 . Instale as dependências:
-Crie um arquivo requirements.txt com o seguinte conteúdo:
-
+3.Instale as dependências:
+Crie um arquivo requirements.txt com:
 selenium
 python-dotenv
 webdriver-manager
 
-Em seguida, instale as bibliotecas com o pip:
-
+Em seguida, rode:
 pip install -r requirements.txt
 
-Configuração
-A configuração do script é feita através de duas partes principais:
-
+⚙️ Configuração
 1. Credenciais de Acesso (.env)
-Para manter suas credenciais seguras, o script utiliza um arquivo .env.
 
-1.Crie um arquivo chamado .env na raiz do projeto.
-
-2.Adicione suas credenciais da Microsoft neste arquivo:
+Crie um arquivo chamado .env na raiz do projeto com suas credenciais Microsoft:
 EMAIL_MS="seu_email@exemplo.com"
 SENHA_MS="sua_senha_super_secreta"
 
-Importante: Adicione o arquivo .env ao seu .gitignore para evitar que suas credenciais sejam enviadas para o repositório Git.
-
-
 2. Lista de Planilhas (no script)
-Abra o arquivo Python principal e edite o dicionário urls para adicionar as planilhas que você deseja processar. Mantenha a estrutura de ("Nome da Planilha", "URL_completa").
 
+No arquivo Python principal, edite o dicionário urls para adicionar as planilhas:
 # Lista de URLs para verificar
 urls = {
     "Vendas": [
@@ -80,16 +84,15 @@ urls = {
     "Outros": []
 }
 
-Como Usar
-Com o ambiente configurado e o script devidamente ajustado, basta executá-lo a partir do seu terminal:
+▶️ Como Usar
 
+Com tudo configurado, execute no terminal:
 python nome_do_seu_script.py
 
+Saída esperada no terminal:
 Configurando o navegador para rodar em modo headless...
 Navegador iniciado em segundo plano.
 Login realizado com sucesso!
-
-O script iniciará o processo, exibindo o progresso no terminal:
 
 Categoria: Vendas
    Acessando: Relatório Diário
@@ -101,22 +104,29 @@ Categoria: Vendas
     Status: OK
 
 Todas as planilhas foram processadas!
-
 Fechando o navegador...
 
 
+🔍 Como Funciona
 
-Como Funciona
-1.Carregamento: As credenciais são carregadas do arquivo .env.
+1.Carregamento: As credenciais são lidas do arquivo .env.
 
-2.Inicialização do Navegador: Uma instância do Google Chrome é iniciada em modo headless com configurações otimizadas para automação.
+2.Inicialização do Navegador: Chrome é iniciado em modo headless.
 
-3.Login: O script navega para a página de login da Microsoft, insere o e-mail e a senha, e lida com o prompt de "Manter conectado".
+3.Login: O script acessa a página de login da Microsoft e autentica o usuário.
 
-4.Processamento em Loop: O script itera sobre cada categoria e planilha definida no dicionário urls.
+4.Processamento em Loop: Itera sobre as categorias e planilhas no dicionário urls.
 
-5.Acesso e Verificação: Para cada planilha, ele acessa a URL e chama a função esperar_sincronizacao.
+5.Acesso e Verificação: Abre cada planilha e procura pela mensagem "Sincronizado com Forms".
 
-6.Espera Inteligente: A função de espera procura ativamente pela mensagem de sucesso "Sincronizado com Forms". Ela é capaz de encontrar o elemento tanto na página principal quanto dentro de elementos iframe, que são comuns em aplicações web complexas como o Office Online.
+6.Espera Inteligente: Suporta verificação dentro de iframes.
 
-7.Finalização: Após processar todas as URLs, o script encerra a sessão do navegador de forma segura.
+7.Finalização: Encerra o navegador de forma segura após processar todas as URLs.
+
+📜 Licença
+
+Este projeto está licenciado sob a licença MIT.
+Você é livre para usar, modificar e distribuir este projeto, desde que mantenha a atribuição ao autor original.
+
+👨‍💻 Desenvolvido por Raphael Clemente
+   
